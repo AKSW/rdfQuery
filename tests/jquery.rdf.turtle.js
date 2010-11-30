@@ -335,11 +335,11 @@ test("test-18", function () {
   var data =
     '@prefix : <http://example.org/foo#> .\n' +
     '\n' +
-    ':a :b """\\nthis \\ris a \\U00015678long\\t\n' +
+    ':a :b """\\nthis \\ris a \\u0001\\u5678long\\t\n' +
     'literal\\uABCD\n' +
     '""" .\n' +
     '\n' +
-    ':d :e """\\tThis \\uABCDis\\r \\U00015678another\\n\n' +
+    ':d :e """\\tThis \\uABCDis\\r \\u0001\\u5678another\\n\n' +
     'one\n' +
     '""" .';
   var triples = $.rdf.parsers['text/turtle'].triples(data, { base: testSuiteBase + 'test-18.ttl' });
