@@ -176,7 +176,7 @@
           return $.map(compatibleMs, function (compatibleM) {
             return {
               bindings: $.extend({}, existingM.bindings, compatibleM.bindings),
-              triples: $.unique(existingM.triples.concat(compatibleM.triples))
+              triples: unique(existingM.triples.concat(compatibleM.triples))
             };
           });
         } else {
@@ -500,7 +500,7 @@
         return false;
       }
       return true;
-    }
+    },
     
     dequeue = function (databank, url, result, args) {
       var callbacks = documentQueue[databank.id][url];
@@ -508,7 +508,22 @@
         callbacks[result].call(databank, args);
       }
       documentQueue[databank.id][url] = undefined;
-    };
+    },
+
+    unique = function( b ) {
+      var a = [];
+      var l = b.length;
+      for(var i=0; i<l; i++) {
+        for(var j=i+1; j<l; j++) {
+          // If b[i] is found later in the array
+          if (b[i] === b[j])
+            j = ++i;
+        }
+        a.push(b[i]);
+      }
+      return a;
+     };
+
 
   $.typedValue.types['http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral'] = {
     regex: /^.*$/m,
@@ -564,7 +579,7 @@
         databanks = $.map(this.union, function (query) {
           return query.databank;
         });
-        databanks = $.unique(databanks);
+        databanks = unique(databanks);
         if (databanks[1] !== undefined) {
           this.databank = $.rdf.databank(undefined, { union: databanks });
         } else {
@@ -1568,7 +1583,7 @@
         $.each(this.union, function (i, databank) {
           triples = triples.concat(databank.triples().get());
         });
-        triples = $.unique(triples);
+        triples = unique(triples);
       }
       return $(triples);
     },
@@ -1617,7 +1632,7 @@
           rhash[r] = true;
         }
       }
-      return $.unique(triples);
+      return unique(triples);
     },
 
     /**
