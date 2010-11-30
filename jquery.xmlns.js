@@ -65,7 +65,7 @@
       tag, found = false;
     if (uri === undefined) {
       if (prefix === undefined) { // get the in-scope declarations on the first element
-        if (ns === undefined) {
+        if (!ns) {
           ns = {
 //            xml: $.uri(xmlNs)
           };
@@ -109,7 +109,7 @@
         this.find('*').andSelf().removeData('xmlns');
         return this;
       } else { // get the in-scope declaration associated with this prefix on the first element
-        if (ns === undefined) {
+        if (!ns) {
           ns = elem.xmlns();
         }
         return ns[prefix];
