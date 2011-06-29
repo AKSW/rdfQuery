@@ -388,7 +388,7 @@
               }
             }
           } else if (hasAttributeNS(p, rdfNs, 'datatype')) {
-            o = p.childNodes[0].nodeValue;
+            o = p.childNodes[0] ? p.childNodes[0].nodeValue : "";
             object = $.rdf.literal(o, { datatype: getAttributeNS(p, rdfNs, 'datatype') });
           } else if (p.getElementsByTagName('*').length > 0) {
             for (j = 0; j < p.childNodes.length; j += 1) {
