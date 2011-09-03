@@ -303,7 +303,7 @@
             p.prefix !== 'xml') {
           if (p.namespaceURI !== rdfNs) {
             property = $.rdf.resource('<' + p.namespaceURI + getLocalName(p) + '>');
-            object = $.rdf.literal(literalOpts.lang ? p.nodeValue : '"' + p.nodeValue + '"', literalOpts);
+            object = $.rdf.literal(literalOpts.lang ? p.nodeValue : '"' + p.nodeValue.replace(/"/g, '\\"') + '"', literalOpts);
             triples.push($.rdf.triple(subject, property, object));
           } else if (getLocalName(p) === 'type') {
             property = $.rdf.type;
@@ -405,7 +405,7 @@
             }
           } else if (p.childNodes.length > 0) {
             o = p.childNodes[0].nodeValue;
-            object = $.rdf.literal(literalOpts.lang ? o : '"' + o + '"', literalOpts);
+            object = $.rdf.literal(literalOpts.lang ? o : '"' + o.replace(/"/g, '\\"') + '"', literalOpts);
           } else {
             oTriples = parseRdfXmlDescription(p, false, base, lang);
             if (oTriples.length > 0) {
