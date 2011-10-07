@@ -154,7 +154,7 @@
   $.typedValue.types = {};
 
   $.typedValue.types['http://www.w3.org/2001/XMLSchema#string'] = {
-    regex: /^.*$/,
+    regex: /^[\s\S]*$/,
     strip: false,
     /** @ignore */
     value: function (v) {
