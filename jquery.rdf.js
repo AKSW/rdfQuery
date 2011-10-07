@@ -2391,6 +2391,9 @@
       } else if ($.typedValue.valid(value, xsdNs + 'double') &&
                  !/^\s*([\-\+]?INF|NaN)\s*$/.test(value)) {  // INF, -INF and NaN aren't valid literals in Turtle
         $.extend(this, $.typedValue(value, xsdNs + 'double'));
+      } else if (true === opts.plain) {
+        // Option to not use turtle syntax for a plain literal w/o datatype or lang
+        this.value = String(value);
       } else {
         m = literalRegex.exec(value);
         if (m !== null) {
@@ -2446,7 +2449,8 @@
     base: $.uri.base(),
     namespaces: {},
     datatype: undefined,
-    lang: undefined
+    lang: undefined,
+    plain: false
   };
 
 })(jQuery);
